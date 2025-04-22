@@ -15,6 +15,17 @@
       color: #3e2f1c;
     }
     header {
+  background-color: #f2e9dc;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  text-align: center;
+
       background-color: #f2e9dc;
       padding: 1em;
       display: flex;
@@ -25,6 +36,9 @@
       z-index: 1000;
     }
     header img {
+  height: 120px;
+  margin: 0 auto;
+
       height: 100px;
       transition: height 0.3s ease;
     }
@@ -104,7 +118,8 @@
 </head>
 <body>
 <header>
-<nav>
+  <img src="logo.png" alt="QuickNest Sites Logo" style="height:120px;" />
+  <nav>
 <a href="#services">Services</a>
 <a href="#pricing">Pricing</a>
 <a href="#contact">Contact</a>
@@ -132,7 +147,7 @@
 <tr><td>Full Website</td><td>$350–$500</td></tr>
 <tr><td>QR Flyer</td><td>$60</td></tr>
 <tr><td>Business Cards</td><td>$40</td></tr>
-<tr><td>Promo Bundle (Includes Landing Page, QR Flyer, Business Card Design)</td><td>$225</td></tr>
+<tr><td>Promo Bundle (Includes Landing Page, QR Flyer, Business Card Design)</td><td><strong>$225</strong></td></tr>
 <tr><td>Monthly Maintenance Package</td><td>$25/month</td></tr></table>
 </section>
 <section id="contact">
