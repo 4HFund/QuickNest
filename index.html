@@ -1,48 +1,21 @@
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="QuickNest Sites creates fast, friendly websites for small businesses and entrepreneurs.">
-  <meta name="keywords" content="website design, landing page, small business website, web development">
-  <title>QuickNest Sites</title>
-  <link rel="preconnect" href="https://fallingfeathers.studio">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <style>
-    :root {
-      --primary-color: #7c5c3b;
-      --secondary-color: #f2e9dc;
-      --background-color: #fdfaf4;
-      --text-color: #3e2f1c;
-      --highlight-color: #fff8f0;
-    }
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuickNest Sites</title>
+<style>
     body {
       font-family: Arial, sans-serif;
-      background-color: var(--background-color);
+      background-color: #fdfaf4;
       margin: 0;
       padding: 0;
-      color: var(--text-color);
-      line-height: 1.6;
+      color: #3e2f1c;
     }
-
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: var(--primary-color);
-      color: white;
-      padding: 8px;
-      z-index: 100;
-      transition: top 0.3s;
-    }
-
-    .skip-link:focus {
-      top: 0;
-    }
-
     header {
-      background-color: var(--secondary-color);
+      background-color: #f2e9dc;
       padding: 1em;
       display: flex;
       justify-content: space-between;
@@ -51,245 +24,130 @@
       top: 0;
       z-index: 1000;
     }
-
     header img {
       height: 100px;
       transition: height 0.3s ease;
     }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-    }
-
     nav a {
       margin-left: 1em;
       text-decoration: none;
-      color: var(--text-color);
+      color: #3e2f1c;
       font-weight: bold;
       font-size: 1.1em;
-      padding: 0.5em;
-      border-radius: 4px;
     }
-
-    nav a:hover, nav a:focus {
-      background-color: rgba(124, 92, 59, 0.1);
-    }
-
     #hero {
       text-align: center;
       padding: 4em 2em;
-      background-color: var(--highlight-color);
+      background-color: #fff8f0;
     }
-
     #hero h1 {
       font-size: 3em;
-      margin-bottom: 0.5em;
     }
-
     .cta-button {
       display: inline-block;
       margin-top: 1em;
       padding: 0.75em 1.5em;
-      background-color: var(--primary-color);
+      background-color: #7c5c3b;
       color: white;
       text-decoration: none;
       border-radius: 4px;
-      font-weight: bold;
-      transition: background-color 0.3s;
     }
-
-    .cta-button:hover, .cta-button:focus {
-      background-color: #5a432b;
-    }
-
-    main {
-      padding-bottom: 2em;
-    }
-
     section {
-      padding: 2em 1em;
+      padding: 1em;
       max-width: 900px;
       margin: auto;
     }
-
     h2 {
-      border-bottom: 2px solid var(--primary-color);
+      border-bottom: 2px solid #7c5c3b;
       padding-bottom: 0.5em;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 1em;
     }
-
     td {
       padding: 0.75em;
       border-bottom: 1px solid #ccc;
     }
-
     form {
       max-width: 600px;
       margin: 2em auto;
       display: flex;
       flex-direction: column;
     }
-
-    label {
-      margin-bottom: 0.5em;
-      font-weight: bold;
-    }
-
     input, textarea {
       margin-bottom: 1em;
       padding: 0.75em;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-family: inherit;
-      font-size: inherit;
     }
-
     button {
       padding: 0.75em;
-      background-color: var(--primary-color);
+      background-color: #7c5c3b;
       color: white;
       border: none;
       border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
     }
-
-    button:hover, button:focus {
-      background-color: #5a432b;
-    }
-
     footer {
       text-align: center;
       padding: 2em;
-      background-color: var(--secondary-color);
+      background-color: #f2e9dc;
     }
-
-    footer a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: bold;
+  
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
     }
-
-    footer a:hover, footer a:focus {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 0.5em;
-      }
-      
-      nav {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 1em;
-      }
-      
-      nav a {
-        margin: 0.5em 0;
-      }
-      
-      #hero h1 {
-        font-size: 2em;
-      }
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header>
-    <nav aria-label="Main navigation">
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <main id="main-content">
-    <section id="hero">
-      <img alt="QuickNest Sites Logo" src="logo.png" loading="lazy" style="height:120px; display:block; margin:auto;"/>
-      <h1>QuickNest Sites</h1>
-      <p>Fast, Friendly, Fully-Feathered Websites</p>
-      <p>Your brand deserves more than a Facebook page and a prayer. At QuickNest, we turn your purpose into a platform—and make sure the world doesn't scroll past what matters.</p>
-      <a class="cta-button" href="#contact">Get Started</a>
-      <p>You don't need to be tech-savvy. You just need a spark—we'll help light it up.</p>
-    </section>
-
-    <section id="services">
-      <h2>What We Offer</h2>
-      <ul>
-        <li><strong>Landing Page Build</strong> – 1-page site with clean layout, contact form, and mobile optimization</li>
-        <li><strong>Full Website (3–5 Pages)</strong> – Homepage, About, Services, Contact, Optional Add-on</li>
-        <li><strong>QR-Linked Flyer Creation</strong> – Branded flyer with QR code to your site</li>
-        <li><strong>Business Card Design</strong> – Branded digital/print-ready cards</li>
-        <li><strong>Monthly Maintenance Package</strong> – Ongoing updates, backups, and priority support</li>
-      </ul>
-    </section>
-
-    <section id="pricing">
-      <h2>Pricing</h2>
-      <table>
-        <tr><td>Landing Page</td><td>$150</td></tr>
-        <tr><td>Full Website</td><td>$350–$500</td></tr>
-        <tr><td>QR Flyer</td><td>$60</td></tr>
-        <tr><td>Business Cards</td><td>$40</td></tr>
-        <tr><td>Promo Bundle (Includes Landing Page, QR Flyer, Business Card Design)</td><td><strong>$225</strong></td></tr>
-        <tr><td>Monthly Maintenance Package</td><td>$25/month</td></tr>
-      </table>
-    </section>
-
-    <section id="contact">
-      <h2>Let's Build Something</h2>
-      <p>Email us at <a href="mailto:QuickNest@fallingfeathers.us">QuickNest@fallingfeathers.us</a></p>
-      <form id="contact-form" method="POST" action="/submit-form">
-        <label for="name">Your Name</label>
-        <input id="name" name="name" placeholder="Your Name" required type="text"/>
-        
-        <label for="email">Your Email</label>
-        <input id="email" name="email" placeholder="Your Email" required type="email"/>
-        
-        <label for="message">What do you need help with?</label>
-        <textarea id="message" name="message" placeholder="What do you need help with?" required></textarea>
-        
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <p>QuickNest Sites is a service of <a href="https://fallingfeathers.studio">Falling Feathers Studio</a></p>
-    <p>© 2025 QuickNest Sites. All rights reserved.</p>
-  </footer>
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "QuickNest Sites",
-      "description": "Fast, friendly website design services for small businesses",
-      "url": "https://yourdomain.com",
-      "logo": "https://yourdomain.com/logo.png",
-      "priceRange": "$",
-      "telephone": "+1-555-555-5555"
-    }
-  </script>
-
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // In a real implementation, you would send the form data to a server here
-      alert('Thank you for your message! We will contact you soon.');
-      this.reset();
-    });
-  </script>
+<header>
+<nav>
+<a href="#services">Services</a>
+<a href="#pricing">Pricing</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+<section id="hero">
+<img alt="QuickNest Sites Logo" src="logo.png" style="height:120px; display:block; margin:auto;"/>
+<p>Fast, Friendly, Fully-Feathered Websites</p>
+<p>Your brand deserves more than a Facebook page and a prayer. At QuickNest, we turn your purpose into a platform—and make sure the world doesn’t scroll past what matters.</p>
+<a class="cta-button" href="#contact">Get Started</a>
+<p>You don’t need to be tech-savvy. You just need a spark—we’ll help light it up.</p></section>
+<section id="services">
+<h2>What We Offer</h2>
+<ul>
+<li><strong>Landing Page Build</strong> – 1-page site with clean layout, contact form, and mobile optimization</li>
+<li><strong>Full Website (3–5 Pages)</strong> – Homepage, About, Services, Contact, Optional Add-on</li>
+<li><strong>QR-Linked Flyer Creation</strong> – Branded flyer with QR code to your site</li>
+<li><strong>Business Card Design</strong> – Branded digital/print-ready cards</li>
+<li><strong>Monthly Maintenance Package</strong> – Ongoing updates, backups, and priority support</li></ul>
+</section>
+<section id="pricing">
+<h2>Pricing</h2>
+<table>
+<tr><td>Landing Page</td><td>$150</td></tr>
+<tr><td>Full Website</td><td>$350–$500</td></tr>
+<tr><td>QR Flyer</td><td>$60</td></tr>
+<tr><td>Business Cards</td><td>$40</td></tr>
+<tr><td>Promo Bundle (Includes Landing Page, QR Flyer, Business Card Design)</td><td>$225</td></tr>
+<tr><td>Monthly Maintenance Package</td><td>$25/month</td></tr></table>
+</section>
+<section id="contact">
+<h2>Let’s Build Something</h2>
+<p>Email us at <a href="mailto:QuickNest@fallingfeathers.us">QuickNest@fallingfeathers.us</a></p>
+<form>
+<input placeholder="Your Name" required="" type="text"/>
+<input placeholder="Your Email" required="" type="email"/>
+<textarea placeholder="What do you need help with?" required=""></textarea>
+<button type="submit">Send</button>
+</form>
+</section>
+<footer>
+<p>QuickNest Sites is a service of <a href="https://fallingfeathers.studio">Falling Feathers Studio</a></p>
+<p>© 2025 QuickNest Sites. All rights reserved.</p>
+</footer>
 </body>
 </html>
