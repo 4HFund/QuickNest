@@ -1,174 +1,229 @@
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>QuickNest</title>
-<style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fdfaf4;
-      margin: 0;
-      padding: 0;
-      color: #3e2f1c;
-    }
-    header {
-  background-color: #f2e9dc;
-  padding: 1em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  text-align: center;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickNest Sites</title>
 
-      background-color: #f2e9dc;
-      padding: 1em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    header img {
-  height: 120px;
-  margin: 0 auto;
+  <!-- Modern, friendly font pair -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-      height: 100px;
-      transition: height 0.3s ease;
-    }
-    nav a {
-      margin-left: 1em;
-      text-decoration: none;
-      color: #3e2f1c;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-    #hero {
-      text-align: center;
-      padding: 4em 2em;
-      background-color: #fff8f0;
-    }
-    #hero h1 {
-      font-size: 3em;
-    }
-    .cta-button {
-      display: inline-block;
-      margin-top: 1em;
-      padding: 0.75em 1.5em;
-      background-color: #7c5c3b;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    section {
-      padding: 1em;
-      max-width: 900px;
-      margin: auto;
-    }
-    h2 {
-      border-bottom: 2px solid #7c5c3b;
-      padding-bottom: 0.5em;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1em;
-    }
-    td {
-      padding: 0.75em;
-      border-bottom: 1px solid #ccc;
-    }
-    form {
-      max-width: 600px;
-      margin: 2em auto;
-      display: flex;
-      flex-direction: column;
-    }
-    input, textarea {
-      margin-bottom: 1em;
-      padding: 0.75em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      padding: 0.75em;
-      background-color: #7c5c3b;
-      color: white;
-      border: none;
-      border-radius: 4px;
-    }
-    footer {
-      text-align: center;
-      padding: 2em;
-      background-color: #f2e9dc;
-    }
-  
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-    }
-    </style>
+  <style>
+  /* -----------------  Design Tokens  ----------------- */
+  :root{
+    /* colors */
+    --clr-bg:        #FDF9F4;
+    --clr-surface:   #FFFFFF;
+    --clr-text:      #3E2F1C;
+    --clr-accent:    #7C5C3B;
+    --clr-accent-dk: #604127;
+
+    /* fonts */
+    --ff-body:'Inter',sans-serif;
+    --ff-head:'Playfair Display',serif;
+
+    /* spacing */
+    --space-xs:.5rem;
+    --space-s: 1rem;
+    --space-m: 2rem;
+    --space-l: 4rem;
+
+    /* layout */
+    --max-width:62rem;
+  }
+
+  /* -----------------  Base  ----------------- */
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--ff-body);
+    color:var(--clr-text);
+    background:var(--clr-bg);
+    line-height:1.65;
+  }
+  img{max-width:100%;display:block;}
+
+  h1,h2,h3{font-family:var(--ff-head);margin:0 0 .4em;}
+  h1{font-size:clamp(2.2rem,4vw+1rem,3.4rem);}
+  h2{font-size:clamp(1.4rem,2vw+.8rem,2rem);}
+
+  a{color:inherit;text-decoration:none;}
+
+  /* -----------------  Layout Helpers  ----------------- */
+  .container{width:min(100%,var(--max-width));margin-inline:auto;padding-inline:var(--space-s);}
+
+  section{padding-block:var(--space-l);}
+
+  /* -----------------  Header  ----------------- */
+  header{
+    background:var(--clr-surface);
+    box-shadow:0 2px 4px rgba(0,0,0,.06);
+    position:sticky;top:0;z-index:1000;
+  }
+  .header-inner{
+    display:flex;align-items:center;gap:var(--space-m);
+    flex-wrap:wrap;justify-content:space-between;
+    padding-block:var(--space-s);
+  }
+  header img{height:100px;transition:height .3s;}
+  nav{display:flex;gap:var(--space-s);flex-wrap:wrap;justify-content:center;}
+
+  nav a{
+    position:relative;
+    font-weight:600;
+    padding-inline:var(--space-xs);
+  }
+  nav a::after{
+    content:"";position:absolute;left:0;bottom:-4px;
+    height:2px;width:0;background:var(--clr-accent);
+    transition:width .3s;
+  }
+  nav a:hover::after,nav a:focus::after{width:100%;}
+
+  /* shrink logo on small screens */
+  @media(max-width:600px){header img{height:72px;}}
+
+  /* -----------------  Hero  ----------------- */
+  #hero{
+    background:linear-gradient(135deg,#FFF8F0 0%,#FDF9F4 100%);
+    text-align:center;
+    display:grid;
+    gap:var(--space-m);
+    padding-block:var(--space-l);
+  }
+  .hero-img{border-radius:8px;aspect-ratio:16/9;object-fit:cover;}
+
+  .cta-btn{
+    display:inline-block;
+    padding:.75em 1.5em;
+    background:var(--clr-accent);
+    color:#fff;border-radius:4px;
+    font-weight:600;
+    transition:background .2s,transform .2s;
+  }
+  .cta-btn:hover,
+  .cta-btn:focus{background:var(--clr-accent-dk);transform:translateY(-2px);}
+
+  /* -----------------  Services  ----------------- */
+  .feather-list{list-style:none;padding:0;margin:0;}
+  .feather-list li{position:relative;margin-block:.6em;padding-left:1.8em;}
+  .feather-list li::before{
+    content:"🪶";
+    position:absolute;left:0;top:0;
+  }
+
+  /* -----------------  Pricing  ----------------- */
+  table{width:100%;border-collapse:collapse;margin-top:var(--space-m);}
+  td{padding:var(--space-s) var(--space-m);border-bottom:1px solid #E5DAD0;}
+  @media(max-width:360px){table{font-size:.92rem;overflow-x:auto;display:block;}}
+
+  /* -----------------  Form  ----------------- */
+  form{max-width:36rem;margin-inline:auto;display:flex;flex-direction:column;gap:var(--space-s);}
+  input,textarea{
+    padding:.75em;border:1px solid #ccc;border-radius:4px;font:inherit;
+  }
+  input:focus,textarea:focus{
+    outline:2px solid var(--clr-accent);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--clr-accent) 40%, transparent);
+  }
+  button{
+    padding:.75em;
+    background:var(--clr-accent);
+    color:#fff;border:none;border-radius:4px;
+    font-weight:600;
+  }
+  button:hover,button:focus{background:var(--clr-accent-dk);cursor:pointer;}
+
+  /* -----------------  Footer  ----------------- */
+  footer{
+    background:var(--clr-surface);
+    text-align:center;padding:var(--space-l) var(--space-s);
+    font-size:.9rem;
+  }
+  </style>
 </head>
-<body>
-<header>
-  <img src="logo.png" alt="QuickNest Sites Logo" style="height:120px;" />
-  <nav>
-<a href="#services">Services</a>
-<a href="#pricing">Pricing</a>
-<a href="#contact">Contact</a>
-</nav>
-</header>
-<section id="hero">
-<img alt="Before and After - QuickNest Sites" src="QuicknestFB.png" style="max-width:100%; display:block; margin:auto; border-radius:8px;" />
-<p style="text-align:center; font-style:italic; margin-top:0.5em;">Helping small brands look like big deals.</p>
-<p>Your brand deserves more than a Facebook page and a prayer. At QuickNest, we turn your purpose into a platform—and make sure the world doesn’t scroll past what matters.</p>
-<a class="cta-button" href="#contact">Get Started</a>
-<p>You don’t need to be tech-savvy. You just need a spark—we’ll help light it up.</p></section>
-<section id="services">
-<h2>What We Offer</h2>
-<ul>
-<li><strong>Landing Page Build</strong> – 1-page site with clean layout, contact form, and mobile optimization</li>
-<li><strong>Full Website (3–5 Pages)</strong> – Homepage, About, Services, Contact, Optional Add-on</li>
-<li><strong>QR-Linked Flyer Creation</strong> – Branded flyer with QR code to your site</li>
-<li><strong>Business Card Design</strong> – Branded digital/print-ready cards</li>
-<li><strong>Monthly Maintenance Package</strong> – Ongoing updates, backups, and priority support</li></ul>
-</section>
-<section id="pricing">
-<h2>Pricing</h2>
-<table>
-<tr><td>Landing Page</td><td>$150</td></tr>
-<tr><td>Full Website</td><td>$350–$500</td></tr>
-<tr><td>QR Flyer</td><td>$60</td></tr>
-<tr><td>Business Cards</td><td>$40</td></tr>
-<tr><td>Promo Bundle (Includes Landing Page, QR Flyer, Business Card Design)</td><td><strong>$225</strong></td></tr>
-<tr><td>Monthly Maintenance Package</td><td>$25/month</td></tr></table>
-<p style="margin-top: 2em; font-size: 1.1em;">
-  <strong>We know what it’s like to build from nothing.</strong><br>
-  If your budget’s not there yet, but your passion is—we’ve got your back.<br>
-  Ask us about our <em>pay-what-you-can</em> plan. You won’t find fine print here. Just folks who believe in your idea.
-</p>
 
-</section>
-<section id="contact">
-<h2>Let’s Build Something</h2>
-<p>Email us at <a href="mailto:QuickNest@fallingfeathers.us">QuickNest@fallingfeathers.us</a></p>
-<form>
-<input placeholder="Your Name" required="" type="text"/>
-<input placeholder="Your Email" required="" type="email"/>
-<textarea placeholder="What do you need help with?" required=""></textarea>
-<button type="submit">Send</button>
-</form>
-</section>
+<body>
+
+<header>
+  <div class="header-inner container">
+    <img src="logo.png" alt="QuickNest Sites logo">
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section id="hero">
+    <h1>Helping small brands look like big deals.</h1>
+
+    <img
+      src="QuicknestFB.png"
+      width="960" height="540"
+      loading="lazy"
+      alt="Before and after examples of QuickNest Sites work"
+      class="hero-img">
+
+    <p>Your brand deserves more than a Facebook page and a prayer. At QuickNest, we turn your purpose into a platform—and make sure the world doesn’t scroll past what matters.</p>
+
+    <a href="#contact" class="cta-btn">Get Started</a>
+
+    <p style="margin-top:var(--space-s);font-style:italic;">You don’t need to be tech-savvy. You just need a spark—we’ll help light it up.</p>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="container">
+    <h2>What We Offer</h2>
+    <ul class="feather-list">
+      <li><strong>Landing Page Build</strong> – 1-page site with clean layout, contact form, and mobile optimization</li>
+      <li><strong>Full Website (3–5 Pages)</strong> – Homepage, About, Services, Contact, Optional Add-on</li>
+      <li><strong>QR-Linked Flyer Creation</strong> – Branded flyer with QR code to your site</li>
+      <li><strong>Business Card Design</strong> – Branded digital/print-ready cards</li>
+      <li><strong>Monthly Maintenance Package</strong> – Ongoing updates, backups, and priority support</li>
+    </ul>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="container">
+    <h2>Pricing</h2>
+    <table>
+      <tr><td>Landing Page</td>              <td>$150</td></tr>
+      <tr><td>Full Website</td>              <td>$350 – $500</td></tr>
+      <tr><td>QR Flyer</td>                  <td>$60</td></tr>
+      <tr><td>Business Cards</td>            <td>$40</td></tr>
+      <tr><td><strong>Promo Bundle (Landing Page + QR Flyer + Business Cards)</strong></td><td><strong>$225</strong></td></tr>
+      <tr><td>Monthly Maintenance Package</td><td>$25/mo</td></tr>
+    </table>
+
+    <p style="margin-top:var(--space-m);font-size:1.05rem;">
+      <strong>We know what it’s like to build from nothing.</strong><br>
+      If your budget’s not there yet, but your passion is—we’ve got your back.<br>
+      Ask us about our <em>pay-what-you-can</em> plan. You won’t find fine print here. Just folks who believe in your idea.
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container">
+    <h2>Let’s Build Something</h2>
+    <p>Email us at <a href="mailto:QuickNest@fallingfeathers.us">QuickNest@fallingfeathers.us</a></p>
+
+    <form>
+      <input type="text"     name="name"  placeholder="Your Name"  required>
+      <input type="email"    name="email" placeholder="Your Email" required>
+      <textarea name="msg"   rows="5"     placeholder="What do you need help with?" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</main>
+
 <footer>
-<p>QuickNest Sites is a service of <a href="https://fallingfeathers.studio">Falling Feathers Studio</a></p>
-<p>© 2025 QuickNest Sites. All rights reserved.</p>
+  <p>QuickNest Sites is a service of <a href="https://fallingfeathers.studio">Falling Feathers Studio</a>.</p>
+  <p>&copy; 2025 QuickNest Sites. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
