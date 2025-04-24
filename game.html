@@ -2,89 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>3D Obstacle Avoidance Game</title>
+  <title>3D Duck Dodge</title>
   <style>
-    body { margin: 0; overflow: hidden; }
+    body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; }
     canvas { display: block; }
+
+    #hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 20px;
+      z-index: 10;
+    }
+
+    #touchControls {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 10;
+    }
+
+    .btn {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      border-radius: 50%;
+      color: white;
+      font-size: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px 40px;
+      color: white;
+      border-radius: 10px;
+      z-index: 20;
+    }
   </style>
 </head>
 <body>
+  <div id="hud">Score: <span id="score">0</span></div>
+  <div id="touchControls">
+    <div class="btn" id="leftBtn">&#8592;</div>
+    <div class="btn" id="rightBtn">&#8594;</div>
+  </div>
+  <div class="game-over" id="gameOver" style="display: none;">
+    Game Over!<br/>
+    <button onclick="window.location.reload()">Restart</button>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/build/three.min.js"></script>
   <script>
-    // Set up scene, camera, and renderer
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    const renderer = new THREE.WebGLRenderer();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Create player cube
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const player = new THREE.Mesh(geometry, material);
-    scene.add(player);
+    const player = new THREE.Mesh(
+      new THREE.BoxGeometry(),
+      new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+    );
     player.position.z = -5;
+    scene.add(player);
 
-    // Create obstacles
+    const light = new THREE.AmbientLight(0xffffff);
+    scene.add(light);
+
     const obstacles = [];
+    const scoreEl = document.getElementById('score');
+    const gameOverEl = document.getElementById('gameOver');
+    let score = 0;
+    let isGameOver = false;
+
     function createObstacle() {
-      const geometry = new THREE.BoxGeometry();
-      const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-      const obstacle = new THREE.Mesh(geometry, material);
-      obstacle.position.x = (Math.random() - 0.5) * 10;
-      obstacle.position.y = (Math.random() - 0.5) * 10;
-      obstacle.position.z = 5;
+      const obstacle = new THREE.Mesh(
+        new THREE.BoxGeometry(),
+        new THREE.MeshBasicMaterial({ color: 0xff0000 })
+      );
+      obstacle.position.x = (Math.random() - 0.5) * 8;
+      obstacle.position.z = 5 + Math.random() * 5;
       scene.add(obstacle);
       obstacles.push(obstacle);
     }
 
-    // Add lighting
-    const light = new THREE.AmbientLight(0xffffff); // soft white light
-    scene.add(light);
+    for (let i = 0; i < 10; i++) createObstacle();
 
-    // Handle player movement
     const keys = {};
-    document.addEventListener('keydown', (e) => {
-      keys[e.key] = true;
-    });
-    document.addEventListener('keyup', (e) => {
-      keys[e.key] = false;
-    });
+    document.addEventListener("keydown", (e) => keys[e.key] = true);
+    document.addEventListener("keyup", (e) => keys[e.key] = false);
 
-    // Game loop
+    // Touch controls
+    let moveLeft = false, moveRight = false;
+    document.getElementById('leftBtn').addEventListener('touchstart', () => moveLeft = true);
+    document.getElementById('leftBtn').addEventListener('touchend', () => moveLeft = false);
+    document.getElementById('rightBtn').addEventListener('touchstart', () => moveRight = true);
+    document.getElementById('rightBtn').addEventListener('touchend', () => moveRight = false);
+
     function animate() {
+      if (isGameOver) return;
+
       requestAnimationFrame(animate);
 
-      // Move player
-      if (keys['ArrowLeft']) player.position.x -= 0.1;
-      if (keys['ArrowRight']) player.position.x += 0.1;
+      if (keys["ArrowLeft"] || moveLeft) player.position.x -= 0.1;
+      if (keys["ArrowRight"] || moveRight) player.position.x += 0.1;
 
-      // Move obstacles
-      obstacles.forEach((obstacle) => {
-        obstacle.position.z -= 0.1;
-        // Check for collision
+      obstacles.forEach((obs) => {
+        obs.position.z -= 0.1;
+
         if (
-          Math.abs(player.position.x - obstacle.position.x) < 1 &&
-          Math.abs(player.position.y - obstacle.position.y) < 1 &&
-          Math.abs(player.position.z - obstacle.position.z) < 1
+          Math.abs(player.position.x - obs.position.x) < 1 &&
+          Math.abs(player.position.z - obs.position.z) < 1
         ) {
-          alert('Game Over!');
-          window.location.reload();
+          isGameOver = true;
+          gameOverEl.style.display = "block";
+        }
+
+        if (obs.position.z < -10) {
+          obs.position.z = 5 + Math.random() * 5;
+          obs.position.x = (Math.random() - 0.5) * 8;
+          if (!isGameOver) score += 1;
+          scoreEl.innerText = score;
         }
       });
 
       renderer.render(scene, camera);
     }
 
-    // Initialize game
-    for (let i = 0; i < 5; i++) {
-      createObstacle();
-    }
     animate();
   </script>
 </body>
