@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Obstacle Avoidance Game</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/build/three.min.js"></script>
+  <script>
+    // Set up scene, camera, and renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Create player cube
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const player = new THREE.Mesh(geometry, material);
+    scene.add(player);
+    player.position.z = -5;
+
+    // Create obstacles
+    const obstacles = [];
+    function createObstacle() {
+      const geometry = new THREE.BoxGeometry();
+      const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+      const obstacle = new THREE.Mesh(geometry, material);
+      obstacle.position.x = (Math.random() - 0.5) * 10;
+      obstacle.position.y = (Math.random() - 0.5) * 10;
+      obstacle.position.z = 5;
+      scene.add(obstacle);
+      obstacles.push(obstacle);
+    }
+
+    // Add lighting
+    const light = new THREE.AmbientLight(0xffffff); // soft white light
+    scene.add(light);
+
+    // Handle player movement
+    const keys = {};
+    document.addEventListener('keydown', (e) => {
+      keys[e.key] = true;
+    });
+    document.addEventListener('keyup', (e) => {
+      keys[e.key] = false;
+    });
+
+    // Game loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Move player
+      if (keys['ArrowLeft']) player.position.x -= 0.1;
+      if (keys['ArrowRight']) player.position.x += 0.1;
+
+      // Move obstacles
+      obstacles.forEach((obstacle) => {
+        obstacle.position.z -= 0.1;
+        // Check for collision
+        if (
+          Math.abs(player.position.x - obstacle.position.x) < 1 &&
+          Math.abs(player.position.y - obstacle.position.y) < 1 &&
+          Math.abs(player.position.z - obstacle.position.z) < 1
+        ) {
+          alert('Game Over!');
+          window.location.reload();
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    // Initialize game
+    for (let i = 0; i < 5; i++) {
+      createObstacle();
+    }
+    animate();
+  </script>
+</body>
+</html>
