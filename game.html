@@ -68,7 +68,7 @@
       controls.enableDamping = true;
 
       const loader = new GLTFLoader();
-      loader.load('/QuickNest/models/scene.gltf', function(gltf) {
+      loader.load('https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf', function(gltf) {
         const model = gltf.scene;
         model.scale.set(1, 1, 1);
         scene.add(model);
