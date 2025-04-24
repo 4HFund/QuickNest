@@ -75,3 +75,19 @@ root.innerHTML = `
     <p>&copy; 2025 QuickNest Sites. All rights reserved.</p>
   </footer>
 `;
+// create a container for JS-only content
+const jsOnly = document.createElement('div');
+jsOnly.style.textAlign = 'center';
+jsOnly.style.margin = '2rem 0';
+jsOnly.style.fontStyle = 'italic';
+jsOnly.style.color = '#7C5C3B';
+
+// fill it with a timestamp
+jsOnly.innerHTML = `
+  🤖 <strong>This message was injected by JavaScript on</strong>
+  ${new Date().toLocaleString()}.
+  <em>If you see this, your JS is working!</em>
+`;
+
+// append it below everything else
+document.body.appendChild(jsOnly);
